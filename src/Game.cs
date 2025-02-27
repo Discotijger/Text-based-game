@@ -18,24 +18,28 @@ class Game
 	{
 		// Create the rooms
 		Room outside = new Room("outside the main entrance of the university");
+		Room home = new Room("You tried to go home but the guard stopped you");
 		Room theatre = new Room("in a lecture theatre");
 		Room pub = new Room("in the campus pub");
 		Room lab = new Room("in a computing lab");
 		Room office = new Room("in the computing admin office");
 
 		// Initialise room exits
-		outside.AddExit("east", theatre);
-		outside.AddExit("south", lab);
-		outside.AddExit("west", pub);
+		outside.AddExit("theatre", theatre);
+		outside.AddExit("lab", lab);
+		outside.AddExit("pub", pub);
+		outside.AddExit("home", home);
 
-		theatre.AddExit("west", outside);
+		home.AddExit("entrance", outside);
 
-		pub.AddExit("east", outside);
+		theatre.AddExit("entrance", outside);
 
-		lab.AddExit("north", outside);
-		lab.AddExit("east", office);
+		pub.AddExit("entrance", outside);
 
-		office.AddExit("west", lab);
+		lab.AddExit("entrance", outside);
+		lab.AddExit("office", office);
+
+		office.AddExit("lab", lab);
 
 		// Create your Items here
 		// ...

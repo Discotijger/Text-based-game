@@ -17,13 +17,13 @@ class Room
 	// Define an exit for this room.
 	public void AddExit(string direction, Room neighbor)
 	{
-		exits.Add(direction, neighbor);
+		exits.Add(direction, neighbor);;
 	}
 
 	// Return the description of the room.
 	public string GetShortDescription()
 	{
-		return description;
+		return description;;
 	}
 
 	// Return a long description of this room, in the form:
@@ -31,10 +31,10 @@ class Room
 	//     Exits: north, west
 	public string GetLongDescription()
 	{
-		string str = "You are ";
+		string str = "You are ";;
 		str += description;
-		str += ".\n";
-		str += GetExitString();
+		str += ".\n";;
+		str += GetExitString();;
 		return str;
 	}
 
@@ -46,16 +46,16 @@ class Room
 		{
 			return exits[direction];
 		}
-		return null;
+		return null;;
 	}
 
 	// Return a string describing the room's exits, for example
 	// "Exits: north, west".
 	private string GetExitString()
 	{
-		string str = "Exits: ";
-		str += String.Join(", ", exits.Keys);
+		string str = "Exits: ";;
+		str += String.Join(", ", exits.Keys);;
 
-		return str;
+		return str;;
 	}
 }
