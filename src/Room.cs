@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 class Room
 {
 	// Private fields
 	private string description;
 	private Dictionary<string, Room> exits; // stores exits of this room.
+	
 
 	// Create a room described "description". Initially, it has no exits.
 	// "description" is something like "in a kitchen" or "in a court yard".
@@ -17,13 +19,13 @@ class Room
 	// Define an exit for this room.
 	public void AddExit(string direction, Room neighbor)
 	{
-		exits.Add(direction, neighbor);;
+		exits.Add(direction, neighbor);
 	}
 
 	// Return the description of the room.
 	public string GetShortDescription()
 	{
-		return description;;
+		return description;
 	}
 
 	// Return a long description of this room, in the form:
@@ -31,10 +33,10 @@ class Room
 	//     Exits: north, west
 	public string GetLongDescription()
 	{
-		string str = "You are ";;
+		string str = "You are ";
 		str += description;
-		str += ".\n";;
-		str += GetExitString();;
+		str += ".\n";
+		str += GetExitString();
 		return str;
 	}
 
@@ -53,8 +55,37 @@ class Room
 	// "Exits: north, west".
 	private string GetExitString()
 	{
-		string str = "Exits: ";;
-		str += String.Join(", ", exits.Keys);;
+		string str = "Exits: ";
+		str += String.Join(", ", exits.Keys);
+
+		return str;;
+	}
+}
+
+class Item{
+
+	private string itemDescription;
+	private Dictionary<string, Item> items;
+
+	public Item(string desc)
+	{
+		itemDescription = desc;
+		items = new Dictionary<string, Item>();
+	}
+
+	public string GetLongDescription()
+	{
+		string str = "You are ";
+		str += itemDescription;
+		str += ".\n";
+		str += GetExitString();
+		return str;
+	}
+
+	private string GetExitString()
+	{
+		string str = "Exits: ";
+		str += String.Join(", ", items.Keys);
 
 		return str;;
 	}

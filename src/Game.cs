@@ -23,28 +23,38 @@ class Game
 		Room pub = new Room("in the campus pub");
 		Room lab = new Room("in a computing lab");
 		Room office = new Room("in the computing admin office");
+		Room basement = new Room("Basement");
+		Room basement2 = new Room("Basement2");
 
 		// Initialise room exits
-		outside.AddExit("theatre", theatre);
-		outside.AddExit("lab", lab);
-		outside.AddExit("pub", pub);
-		outside.AddExit("home", home);
+		outside.AddExit("east", theatre);
+		outside.AddExit("south", lab);
+		outside.AddExit("west", pub);
+		outside.AddExit("north", home);
 
-		home.AddExit("entrance", outside);
+		home.AddExit("south", outside);
 
-		theatre.AddExit("entrance", outside);
+		theatre.AddExit("west", outside);
 
-		pub.AddExit("entrance", outside);
+		pub.AddExit("east", outside);
 
-		lab.AddExit("entrance", outside);
-		lab.AddExit("office", office);
+		lab.AddExit("north", outside);
+		lab.AddExit("east", office);
 
-		office.AddExit("lab", lab);
+		office.AddExit("west", lab);
+		office.AddExit("down", basement);
+		office.AddExit("down twice", basement2);
+
+		basement.AddExit("up", office);
+		basement.AddExit("Down", basement2);
+
+		basement2.AddExit("up", basement);
+		basement2.AddExit("up twice", office);
 
 		// Create your Items here
-		// ...
+		
 		// And add them to the Rooms
-		// ...
+		
 
 		// Start game outside
 		currentRoom = outside;
@@ -103,6 +113,9 @@ class Game
 			case "quit":
 				wantToQuit = true;
 				break;
+			case "Look":
+				LookAround();
+				break;
 		}
 
 		return wantToQuit;
@@ -111,7 +124,7 @@ class Game
 	// ######################################
 	// implementations of user commands:
 	// ######################################
-	
+
 	// Print out some help information.
 	// Here we print the mission and a list of the command words.
 	private void PrintHelp()
@@ -146,5 +159,11 @@ class Game
 
 		currentRoom = nextRoom;
 		Console.WriteLine(currentRoom.GetLongDescription());
+	}
+
+	private void LookAround()
+	{
+		Console.WriteLine(currentRoom.GetLongDescription());
+		
 	}
 }
