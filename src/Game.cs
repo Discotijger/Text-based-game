@@ -1,15 +1,17 @@
 using System;
+using System.Runtime.CompilerServices;
 
 class Game
 {
 	// Private fields
 	private Parser parser;
-	private Room currentRoom;
+	private Player player;
 
 	// Constructor
 	public Game()
 	{
 		parser = new Parser();
+		player = new Player();
 		CreateRooms();
 	}
 
@@ -24,7 +26,7 @@ class Game
 		Room lab = new Room("in a computing lab");
 		Room office = new Room("in the computing admin office");
 		Room basement = new Room("Basement");
-		Room basement2 = new Room("Basement2");
+		Room basements = new Room("Basement2");
 
 		// Initialise room exits
 		outside.AddExit("east", theatre);
@@ -43,13 +45,11 @@ class Game
 
 		office.AddExit("west", lab);
 		office.AddExit("down", basement);
-		office.AddExit("down twice", basement2);
 
 		basement.AddExit("up", office);
-		basement.AddExit("Down", basement2);
+		basement.AddExit("down", basements);
 
-		basement2.AddExit("up", basement);
-		basement2.AddExit("up twice", office);
+		basements.AddExit("up", basement);
 
 		// Create your Items here
 		
@@ -57,7 +57,7 @@ class Game
 		
 
 		// Start game outside
-		currentRoom = outside;
+		player.CurrentRoom = outside;
 	}
 
 	//  Main play routine. Loops until end of play.
@@ -86,7 +86,7 @@ class Game
 		Console.WriteLine("Zuul is a new, incredibly boring adventure game.");
 		Console.WriteLine("Type 'help' if you need help.");
 		Console.WriteLine();
-		Console.WriteLine(currentRoom.GetLongDescription());
+		Console.WriteLine(player.CurrentRoom.GetLongDescription());
 	}
 
 	// Given a command, process (that is: execute) the command.
@@ -95,7 +95,7 @@ class Game
 	private bool ProcessCommand(Command command)
 	{
 		bool wantToQuit = false;
-
+		
 		if(command.IsUnknown())
 		{
 			Console.WriteLine("I don't know what you mean...");
@@ -113,8 +113,11 @@ class Game
 			case "quit":
 				wantToQuit = true;
 				break;
-			case "Look":
+			case "look":
 				LookAround();
+				break;
+			case "health":
+				HealthCheck();
 				break;
 		}
 
@@ -150,20 +153,27 @@ class Game
 		string direction = command.SecondWord;
 
 		// Try to go to the next room.
-		Room nextRoom = currentRoom.GetExit(direction);
+		Room nextRoom = player.CurrentRoom.GetExit(direction);
 		if (nextRoom == null)
 		{
 			Console.WriteLine("There is no door to "+direction+"!");
 			return;
-		}
+		}else{
+			Player.DecreaseHealth(5);
+			Player.isAlive();
+		};
 
-		currentRoom = nextRoom;
-		Console.WriteLine(currentRoom.GetLongDescription());
+		player.CurrentRoom = nextRoom;
+		Console.WriteLine(player.CurrentRoom.GetLongDescription());
 	}
 
 	private void LookAround()
 	{
-		Console.WriteLine(currentRoom.GetLongDescription());
-		
+		Console.WriteLine(player.CurrentRoom.GetLongDescription());
+	}
+	
+	private void HealthCheck()
+	{
+		Console.WriteLine($"Your health is {Player.Health}");
 	}
 }
