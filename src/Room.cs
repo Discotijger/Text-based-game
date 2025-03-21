@@ -7,7 +7,6 @@ class Room
 	private string description;
 	private Dictionary<string, Room> exits; // stores exits of this room.
 	
-
 	// Create a room described "description". Initially, it has no exits.
 	// "description" is something like "in a kitchen" or "in a court yard".
 	public Room(string desc)
@@ -57,35 +56,6 @@ class Room
 	{
 		string str = "Exits: ";
 		str += String.Join(", ", exits.Keys);
-
-		return str;;
-	}
-}
-
-class Item{
-
-	private string itemDescription;
-	private Dictionary<string, Item> items;
-
-	public Item(string desc)
-	{
-		itemDescription = desc;
-		items = new Dictionary<string, Item>();
-	}
-
-	public string GetLongDescription()
-	{
-		string str = "You are ";
-		str += itemDescription;
-		str += ".\n";
-		str += GetExitString();
-		return str;
-	}
-
-	private string GetExitString()
-	{
-		string str = "Exits: ";
-		str += String.Join(", ", items.Keys);
 
 		return str;;
 	}

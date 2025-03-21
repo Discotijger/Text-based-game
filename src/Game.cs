@@ -52,7 +52,10 @@ class Game
 		basements.AddExit("up", basement);
 
 		// Create your Items here
-		
+		Item SilverAxe = new Item(5, "An axe coverd with a silver lining");
+		Item Key = new Item(1, "A golden key..");
+		Item Medpack = new Item(5, "A Medpack (Heals 50 hp)");
+
 		// And add them to the Rooms
 		
 
@@ -116,7 +119,7 @@ class Game
 			case "look":
 				LookAround();
 				break;
-			case "health":
+			case "status":
 				HealthCheck();
 				break;
 		}

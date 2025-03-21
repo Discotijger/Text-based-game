@@ -17,7 +17,7 @@ class Player{
     }
     
     //auto property
-    public Room CurrentRoom { get; set; }
+    public Room CurrentRoom;
 
     //constructor
     public Player(){
